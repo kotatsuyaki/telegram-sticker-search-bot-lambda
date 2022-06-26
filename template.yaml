@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  Func:
+    Type: AWS::Serverless::Function
+    Properties:
+      MemorySize: 128
+      Architectures: ["arm64"]
+      Handler: bootstrap
+      CodeUri: target/lambda/func
+      Timeout: 10
+      Runtime: provided.al2
+      FunctionUrlConfig:
+        AuthType: NONE
+
+Outputs:
+  FuncUrlEndpoint:
+    Description: URL Endpoint of Lambda "Func"
+    Value:
+      Fn::GetAtt: FuncUrl.FunctionUrl
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aws/serverless-application-model/develop/samtranslator/validator/sam_schema/schema.json
